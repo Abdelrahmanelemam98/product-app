@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <h3>welcome</h3>
+    <ng-container *ngFor="let product of prod()">
+      <div class="col-md-4">
+        <div class="card mt-3">
+          <img
+            [src]="product.thumbnail"
+            class="card-img-top"
+            alt="{{ product.title }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">
+              <strong>Price:</strong> ${{ product.price }}
+            </p>
+            <p class="card-text"><strong>Brand:</strong> {{ product.brand }}</p>
+            <p class="card-text">
+              <strong>Rating:</strong> {{ product.rating }}
+            </p>
+            <p class="card-text">
+              <strong>Availability:</strong> {{ product.availabilityStatus }}
+            </p>
+            <button class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
