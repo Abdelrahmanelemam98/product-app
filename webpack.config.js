@@ -31,16 +31,15 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./routes": "./src/app/routes.routes.ts",
-
-        "./Component": "./src/app/product-list/product-list.component.ts",
+        "./ProductListComponent":
+          "./src/app/product-list/product-list.component.ts",
+        "./ProductDetailsComponent":
+          "./src/app/product-details/product-details.component.ts",
       },
-
-      // For hosts (please adjust)
+      // Uncomment and adjust if using remotes
       // remotes: {
-      //     "mfe1": "http://localhost:3000/remoteEntry.js",
-
+      //   mfe1: "http://localhost:3000/remoteEntry.js",
       // },
-
       shared: share({
         "@angular/core": {
           singleton: true,
@@ -62,7 +61,6 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-
         ...sharedMappings.getDescriptors(),
       }),
     }),
