@@ -1,0 +1,56 @@
+<div class="container">
+  <button [routerLink]="['/product']" class="btn mt-4">BACK TO LIST</button>
+</div>
+
+<div class="product-details container my-5" *ngIf="productDetials()">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 text-center">
+      <img
+        class="img-fluid product-image"
+        [src]="productDetials().thumbnail"
+        alt="{{ productDetials()?.title }}"
+      />
+    </div>
+
+    <div class="col-lg-8 col-md-6">
+      <h2 class="product-title">{{ productDetials()?.title }}</h2>
+      <p class="product-description">{{ productDetials()?.description }}</p>
+
+      <div class="product-meta">
+        <span class="badge bg-primary">{{ productDetials()?.category }}</span>
+        <span class="badge bg-warning text-dark">
+          SKU: {{ productDetials()?.sku }}
+        </span>
+        <span class="badge bg-success">
+          Stock: {{ productDetials()?.stock }}
+        </span>
+        <span class="badge bg-danger">
+          {{ productDetials()?.availabilityStatus }}
+        </span>
+      </div>
+
+      <div class="product-price mt-3">
+        <h4>Price: ${{ productDetials()?.price }}</h4>
+        <p>Discount: {{ productDetials()?.discountPercentage }}%</p>
+        <p>Rating: {{ productDetials()?.rating }}/5</p>
+      </div>
+
+      <div class="product-specs mt-3">
+        <p>
+          <strong>Dimensions:</strong>
+          {{ productDetials()?.dimensions?.width }} x
+          {{ productDetials()?.dimensions?.height }} x
+          {{ productDetials()?.dimensions?.depth }} cm
+        </p>
+        <p><strong>Weight:</strong> {{ productDetials()?.weight }} g</p>
+        <p>
+          <strong>Warranty:</strong>
+          {{ productDetials()?.warrantyInformation }}
+        </p>
+        <p>
+          <strong>Shipping </strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h3>welcome</h3>
+    <h3>Welcome</h3>
     <ng-container *ngFor="let product of prod()">
       <div class="col-md-4">
         <div class="card mt-3">
@@ -23,6 +23,9 @@
               <strong>Availability:</strong> {{ product.availabilityStatus }}
             </p>
             <button class="btn btn-primary">Add to Cart</button>
+            <button class="btn btn-primary" (click)="showDetails(product.id)">
+              Details
+            </button>
           </div>
         </div>
       </div>

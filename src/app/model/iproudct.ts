@@ -40,8 +40,8 @@ export interface IProudct {
   returnPolicy?: string;
   minimumOrderQuantity?: number;
   meta?: IMeta;
-  thumbnail?: string; // Assuming thumbnail will have a string URL
-  images?: string[]; // Assuming images will have string URLs
+  thumbnail?: string;
+  images?: string[];
 }
 
 export interface IProductResponse {
