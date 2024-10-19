@@ -30,7 +30,6 @@ module.exports = {
       name: "productApp",
       filename: "remoteEntry.js",
       exposes: {
-        "./routes": "./src/app/routes.routes.ts",
         "./ProductListComponent":
           "./src/app/product-list/product-list.component.ts",
         "./ProductDetailsComponent":
