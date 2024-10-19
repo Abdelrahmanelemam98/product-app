@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit {
 
   showDetails(prodId: number | undefined) {
     if (prodId) {
-      this.router.navigate(['/product', prodId]);
+      this.router.navigate(['product/', prodId]);
     } else {
       console.error('Prodcut Id is undefined');
     }
