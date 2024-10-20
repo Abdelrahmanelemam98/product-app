@@ -1,8 +1,17 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  OnInit,
+  output,
+  Signal,
+  signal,
+} from '@angular/core';
 import { IProudct, IProductResponse } from '../model/iproudct';
 import { ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -16,6 +25,7 @@ export class ProductListComponent implements OnInit {
   prod = signal<IProudct[]>([]);
   prodArr: IProudct[] = [];
   router = inject(Router);
+  outputEv = signal<string>('ali');
   ngOnInit(): void {
     this.productServices.getAllProduct().subscribe((res: IProductResponse) => {
       console.log(res, 'Response from API');
@@ -23,8 +33,21 @@ export class ProductListComponent implements OnInit {
       this.prod.set(this.prodArr);
       console.log(this.prod(), 'Filtered products');
     });
+    // this.outputEv/
+    // subscribe((res) => {
+    //   console.log('res from output', res);
+    // });
+    setTimeout(() => {
+      console.log('should recive');
+    }, 5000);
   }
 
+  constructor() {
+    effect(() => {
+      console.log('log signal', this.outputEv());
+      // this.outputEv.set()
+    });
+  }
   showDetails(prodId: number | undefined) {
     if (prodId) {
       this.router.navigate(['product/', prodId]);
