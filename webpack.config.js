@@ -34,11 +34,14 @@ module.exports = {
           "./src/app/product-list/product-list.component.ts",
         "./ProductDetailsComponent":
           "./src/app/product-details/product-details.component.ts",
+        "./CategoryListComponent":
+          "./src/app/category-list/category-list.component.ts",
       },
       // Uncomment and adjust if using remotes
       // remotes: {
       //   mfe1: "http://localhost:3000/remoteEntry.js",
       // },
+
       shared: share({
         "@angular/core": {
           singleton: true,
