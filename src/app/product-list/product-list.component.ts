@@ -1,17 +1,8 @@
-import {
-  Component,
-  effect,
-  inject,
-  OnInit,
-  output,
-  Signal,
-  signal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { IProudct, IProductResponse } from '../model/iproudct';
 import { ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -22,37 +13,55 @@ import { Subject } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
   productServices = inject(ProductService);
-  prod = signal<IProudct[]>([]);
-  prodArr: IProudct[] = [];
+  prod = signal<IProudct[]>([]); // Signal for product list with type IProudct[]
+  prodArr: IProudct[] = []; // All products array
   router = inject(Router);
-  outputEv = signal<string>('ali');
+  categorySelected: string = ''; // Store selected category name
+
   ngOnInit(): void {
+    // Fetch all products on initialization
     this.productServices.getAllProduct().subscribe((res: IProductResponse) => {
       console.log(res, 'Response from API');
-      this.prodArr = res.products || [];
-      this.prod.set(this.prodArr);
-      console.log(this.prod(), 'Filtered products');
+      this.prodArr = res.products || []; // Assign the products array to prodArr
+      this.prod.set(this.prodArr); // Set all products in the signal initially
+      console.log(this.prod(), 'All products loaded');
     });
-    // this.outputEv/
-    // subscribe((res) => {
-    //   console.log('res from output', res);
-    // });
-    setTimeout(() => {
-      console.log('should recive');
-    }, 5000);
+
+    // Listen for category selection events
+    window.addEventListener('categorySelected', (event: any) => {
+      this.categorySelected = event.detail.name;
+      console.log('Category selected:', this.categorySelected);
+
+      // Reload products based on selected category
+      this.loadProductCategory(this.categorySelected);
+    });
   }
 
-  constructor() {
-    effect(() => {
-      console.log('log signal', this.outputEv());
-      // this.outputEv.set()
-    });
-  }
+  constructor() {}
+
+  // Navigate to product details page
   showDetails(prodId: number | undefined) {
     if (prodId) {
       this.router.navigate(['product/', prodId]);
     } else {
-      console.error('Prodcut Id is undefined');
+      console.error('Product Id is undefined');
+    }
+  }
+
+  // Load products by selected category
+  loadProductCategory(category: string) {
+    if (category && category !== 'All') {
+      this.productServices
+        .getProductByCategory(category)
+        .subscribe((data: IProductResponse) => {
+          // Filter products by category and assign to prod signal
+          const filteredProducts = data.products || [];
+          this.prod.set(filteredProducts);
+          console.log(this.prod(), 'Filtered products');
+        });
+    } else {
+      // If no category is selected or 'All' is selected, show all products
+      this.prod.set(this.prodArr);
     }
   }
 }

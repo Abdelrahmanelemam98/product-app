@@ -23,7 +23,7 @@ module.exports = {
     },
   },
   experiments: {
-    outputModule: true,
+    // outputModule: true,
   },
   plugins: [
     new ModuleFederationPlugin({
